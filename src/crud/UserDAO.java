@@ -9,15 +9,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author agusseputra
  */
 public class UserDAO {
     private Connection connection;
-    public UserDAO() throws SQLException{
-        connection = DBConnection.getConnection();
-        
+    public UserDAO() {
+        try {
+            connection = DBConnection.getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     // create User
     public int insertUser(User user){
@@ -62,7 +67,7 @@ public class UserDAO {
         return users;
     }
     // update User
-    public int updateUser(User user){
+    public int updateUser(User user, int id){
         try{
             String sql = "UPDATE users SET first_name=?, last_name=?, email=?, country=? WHERE id=?";
             PreparedStatement stmt =connection.prepareStatement(sql);
@@ -70,7 +75,7 @@ public class UserDAO {
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getCountry());
-            stmt.setInt(5, user.getId());
+            stmt.setInt(5, id);
             stmt.executeUpdate();
             return 1;
             
@@ -80,15 +85,17 @@ public class UserDAO {
         
     }
      // Delete User
-    public void deleteUser(int id){
+    public int deleteUser(int id){
         try{
             String sql = "DELETE FROM users  WHERE id=?";
             PreparedStatement stmt =connection.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            return 1;
             
         }catch(SQLException e){
-              e.printStackTrace();
+              //e.printStackTrace();
+              return 0;
         }
         
     }
