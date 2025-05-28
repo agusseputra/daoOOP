@@ -11,18 +11,21 @@ package crud;
 
 public class User {
     private int id;
+    private String firstName;
     private String lastName;
     private String email;
     private String country;
+    private String password;
     
-     public User(int id, String firstName,String lastName, String email, String country){
+     public User(int id, String firstName,String lastName, String email, String country, String password){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.country = country;
+        this.password = password;
     }
-    private String firstName;
+    
     public int getId() {
         return id;
     }
@@ -58,6 +61,13 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+     public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

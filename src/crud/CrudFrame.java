@@ -16,6 +16,8 @@ import java.util.List;
  * @author agusseputra
  */
 public class CrudFrame extends javax.swing.JFrame {
+
+    
     private int selectedUserId=-1;
     UserController controller = new UserController();
     public CrudFrame() throws SQLException {
@@ -53,6 +55,7 @@ public class CrudFrame extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         saveUpdate = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +112,8 @@ public class CrudFrame extends javax.swing.JFrame {
             }
         });
 
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,11 +135,14 @@ public class CrudFrame extends javax.swing.JFrame {
                                 .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(countryTextField))
                         .addGap(18, 18, 18)
-                        .addComponent(addButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(saveUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteButton))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -149,7 +157,8 @@ public class CrudFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(countryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,16 +182,19 @@ public class CrudFrame extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        
         String fn = firstNameTextField.getText();
         String ln = lastNameTextField.getText();
         String email = emailTextField.getText();
         String country = countryTextField.getText();
+        String password = new String(jPasswordField1.getPassword());
         
         if(fn.isEmpty() || fn.isEmpty() || fn.isEmpty() || fn.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please fill in all fields ", "Input Error", JOptionPane.ERROR_MESSAGE);
         }else {
-        
-            User newUser = new User(0, fn, ln, email, country );
+            AuthController authcontroller=new AuthController();
+            password=authcontroller.hashPassword(password.toString());
+            User newUser = new User(0, fn, ln, email, country, password );
             try {
                 int res = controller.addUser(newUser);
                 if (res == 1) {
@@ -193,7 +205,7 @@ public class CrudFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error occurred while inserting ", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(this, "Error occurred while inserting ", "Error", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -237,12 +249,13 @@ public class CrudFrame extends javax.swing.JFrame {
         String ln = lastNameTextField.getText();
         String email = emailTextField.getText();
         String country = countryTextField.getText();
+        String password = "";
         
         if(fn.isEmpty() || fn.isEmpty() || fn.isEmpty() || fn.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please fill in all fields ", "Input Error", JOptionPane.ERROR_MESSAGE);
         }else {
         
-            User newUser = new User(0, fn, ln, email, country );
+            User newUser = new User(0, fn, ln, email, country, password );
             try {
                 int res = controller.updateUser(newUser, selectedUserId);
                 if (res == 1) {
@@ -296,6 +309,7 @@ public class CrudFrame extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -306,6 +320,7 @@ public class CrudFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameTextField;
     private javax.swing.JButton saveUpdate;

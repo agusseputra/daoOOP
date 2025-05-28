@@ -27,12 +27,13 @@ public class UserDAO {
     // create User
     public int insertUser(User user){
         try{
-            String sql = "INSERT INTO users (first_name, last_name, email, country) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO users (first_name, last_name, email, country, password) VALUES(?,?,?,?,?)";
             PreparedStatement stmt =connection.prepareStatement(sql);
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getCountry());
+            stmt.setString(5, user.getPassword());
             stmt.executeUpdate();
             return 1;
             
@@ -56,8 +57,9 @@ public class UserDAO {
                 String lName = rs.getString("last_name");
                 String email = rs.getString("email");
                 String country = rs.getString("country");
+                String password="";
                 
-                users.add(new User(id, fName, lName, email, country));
+                users.add(new User(id, fName, lName, email, country,password));
                 
             }
             

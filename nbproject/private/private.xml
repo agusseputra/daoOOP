@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/AuthDAO.java</file>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/Dashboard.java</file>
             <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/User.java</file>
             <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/CrudFrame.java</file>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/Obat.java</file>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/AuthController.java</file>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/UserController.java</file>
             <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/UserDAO.java</file>
+            <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/MainForm.java</file>
             <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/CRUD.java</file>
             <file>file:/Users/agusseputra/Developer/Java/CRUD/src/crud/DBConnection.java</file>
         </group>

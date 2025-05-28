@@ -17,7 +17,7 @@ public class CRUD {
      */
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        new CrudFrame().setVisible(true);
+        new Dashboard().setVisible(true);
     }
     
 }

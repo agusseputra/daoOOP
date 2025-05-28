@@ -28,4 +28,5 @@ public class UserController {
     public int deleteUser(int id) {
         return userDao.deleteUser(id);
     }
+    
 }
